@@ -5,13 +5,14 @@ services:
     app:
         build: .
         container_name: app
-        restart: on-failure
+        entrypoint: dockerize -wait tcp://db:3306 -timeout 40s php-fpm
         volumes:
           - .:/var/www
         networks:
           - app-network
         depends_on:
           - db
+          - redis
 
     nginx:
         build: .docker/nginx
@@ -24,6 +25,8 @@ services:
           - .:/var/www
         networks:
           - app-network
+        depends_on:
+          - app
 
     redis:
         image: redis:alpine
@@ -50,8 +53,6 @@ services:
           - MYSQL_USER=root
         networks:
           - app-network
-        healthcheck:
-          test: ["CMD", 'mysql -uroot -D laravel -proot --execute="SELECT COUNT(table_name) > 0 FROM information_schema.tables;" --skip-column-names -B']
 
     adminer:
         image: adminer

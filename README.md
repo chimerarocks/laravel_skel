@@ -11,4 +11,7 @@ específicos de serviços que rodam dentro do container terá que fazer por cont
 
 
 Pra isso, então foi criado o dockerize.
-Ao utilizar o dockerie é preciso estar atento ao timeout de tentativas.
+Ao utilizar o dockerize é preciso estar atento ao timeout de tentativas. 
+Como o dockerize morre depois de concluir, é preciso executar um outro comando que fique
+rodando o container.
+
