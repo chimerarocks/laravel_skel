@@ -51,7 +51,7 @@ services:
         networks:
           - app-network
         healthcheck:
-          test: ["CMD", 'mysql -uroot -D laravel -plaravel --execute="SELECT COUNT(table_name) > 0 FROM information_schema.tables;" --skip-column-names -B']
+          test: ["CMD", 'mysql -uroot -D laravel -proot --execute="SELECT COUNT(table_name) > 0 FROM information_schema.tables;" --skip-column-names -B']
 
     adminer:
         image: adminer
