@@ -24,3 +24,7 @@ acontece porque temos um volume no docker-compose que sobrescreve os arquivos.
 Quando o Dockerfile é gerado não existe docker-compose a imagem ainda está sendo gerada.
 
 Por isso esses comandos de instalação devem ser colocados no entrypoint
+
+Quanto menos recurso você utilizar numa imagem, melhor a segurança por isso o alpine é melhor.
+Ainda nessa questão é importante notar que na produção não é preciso nenhuma ferramenta
+de desenvolvimento como composer ou npm por isso é feito o multi-stage building.
