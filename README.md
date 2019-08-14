@@ -28,3 +28,23 @@ Por isso esses comandos de instalação devem ser colocados no entrypoint
 Quanto menos recurso você utilizar numa imagem, melhor a segurança por isso o alpine é melhor.
 Ainda nessa questão é importante notar que na produção não é preciso nenhuma ferramenta
 de desenvolvimento como composer ou npm por isso é feito o multi-stage building.
+
+
+
+** CI **
+
+Google Cloud Platform
+
+
+As coisas são divididas em projetos.
+
+1. Criar um projeto
+2. Installar cli gcloud
+3. Habilitar Cloud Build
+    > O Cloud Build funciona por gatilhos
+    
+Não vamos usar o dockerize porque queremos testar cada passo do processo de instalação. 
+Nem sempre é preciso, na maioria das vezes, utilizar o docker-compose up. Mas nesse caso vamos fazer para testar cada passo.
+Criando um docker-compose especifico para build
+
+Voce pode pedir para o cloudbuild rodar utilizar o Dockerfile ou o cloudbuild.yaml  (cloudbuild da pra fazer teste mais avançados)
