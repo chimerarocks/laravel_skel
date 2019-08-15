@@ -3,7 +3,7 @@ FROM php:7.3.6-fpm-stretch
 RUN apt-get update \
         && docker-php-ext-install pdo pdo_mysql \
         && usermod -u 1000 www-data \
-        && apt-get install -y wget git-all
+        && apt-get install -y wget git
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
