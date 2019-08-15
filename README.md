@@ -42,9 +42,32 @@ As coisas são divididas em projetos.
 2. Installar cli gcloud
 3. Habilitar Cloud Build
     > O Cloud Build funciona por gatilhos
+4. Criar gatilho do repositório
+5. Fazer o build
+6. Integrar build com pull request no git
     
 Não vamos usar o dockerize porque queremos testar cada passo do processo de instalação. 
 Nem sempre é preciso, na maioria das vezes, utilizar o docker-compose up. Mas nesse caso vamos fazer para testar cada passo.
 Criando um docker-compose especifico para build
 
 Voce pode pedir para o cloudbuild rodar utilizar o Dockerfile ou o cloudbuild.yaml  (cloudbuild da pra fazer teste mais avançados)
+
+Ao criar o gatilho do GCP e dispara verificou-se que o ouve um erro:
+> Error response from daemon: manifest for gcr.io/ng-recipe-book-79dc9/docker-compose:latest not found
+
+O problema é que ao puxar a imagem ele está pedindo o docker-compose na imagem já que ele irá executar
+> Error response from daemon: manifest for gcr.io/codeedu-jp/docker-compose:latest not found
+> gcr.io/codeedu-jp/docker-compose — -f docker-compose.cloudbuild.yaml up -d
+
+Se você perceber ele está pedindo o docker-compose do gcr.io (google cloud registry), mas não está lá.
+
+Toda vez que utilizamos uma imagem do docker registramos no registry do docker-hub, mas agora precisa estar
+registrado no registry da google.
+
+Então é preciso buildar uma imagem do docker-compose e coloca-la no registry.
+
+O gcr.io possui diversas imagens que voce pode aproveitar chamando gcr.io/cloud-builders/[comando] git,go,docker.
+Essas são públicas, no caso não tem uma do docker-compose pública então vamos criar uma no nosso registry. (gcr.io/$PROJECT_ID)
+
+Então na imagem que criaremos precisamos instalar o docker-compose e no entry point chamar o docker-compose para ser utilizado pelo cbuild
+
